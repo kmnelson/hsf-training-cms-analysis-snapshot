@@ -10,6 +10,6 @@ WORKDIR /analysis/skim
 
 # Compile an executable named 'skim' from the skim.cxx source file
 RUN echo ">>> Compile skimming executable ..." &&  \
-    COMPILER=root-config --cxx && \
-    FLAGS=root-config --cflags --libs && \
+    COMPILER=$(root-config --cxx) && \
+    FLAGS=$(root-config --cflags --libs) && \
     $COMPILER -g -std=c++11 -O3 -Wall -Wextra -Wpedantic -o skim skim.cxx $FLAGS
