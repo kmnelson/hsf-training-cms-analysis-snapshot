@@ -7,26 +7,38 @@ jobs:
       - run: echo hello world
 
   build_skim:
+    needs: greeting
     runs-on: ubuntu-latest
-    container: rootproject/root-conda:6.18.04
-    steps:
-     - name: checkout repository
-       uses: actions/checkout@v2
-     - name: build
-       run: |
-         COMPILER=$(root-config --cxx)
-         FLAGS=$(root-config --cflags --libs)
-         $COMPILER -g -O3 -Wall -Wpedantic -o skim skim.cxx $FLAGS
-
-  build_skim_latest:
-    runs-on: ubuntu-latest
-    container: rootproject/root-conda:latest
+    container:
+      image: rootproject/root-conda:6.18.04
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
 
-      - name: latest
+      - name: build
         run: |
-          COMPILER=$(root-config --cxx)
-          FLAGS=$(root-config --cflags --libs)
-          $COMPILER -g -O3 -Wall -Wextra -Wpedantic -o skim skim.cxx $FLAGS
+            COMPILER=$(root-config --cxx)
+            FLAGS=$(root-config --cflags --libs)
+            $COMPILER -g -O3 -Wall -Wextra -Wpedantic -o skim skim.cxx $FLAGS
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: skim
+          path: skim
+
+  skim:
+    needs: build_skim
+    runs-on: ubuntu-latest
+    container: rootproject/root-conda:6.18.04
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: skim
+
+      - name: skim
+        run: |
+          chmod +x ./skim
+          ./skim
