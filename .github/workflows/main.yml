@@ -10,7 +10,10 @@ jobs:
     needs: greeting
     runs-on: ubuntu-latest
     container:
-      image: rootproject/root-conda:6.18.04
+      image: rootproject/root-conda:${{ matrix.version }}
+    strategy:
+      matrix:
+        version: [6.18.04,latest]
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
