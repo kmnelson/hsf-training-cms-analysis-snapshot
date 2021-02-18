@@ -104,23 +104,8 @@ jobs:
           mkdir -p doxyOut
           doxygen Doxyfile
 
-      - uses: actions/upload-artifact@v2
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
-          name: doxygen
-          path: doxyOut
-
-  doxygen_upload:
-    needs: doxygen_build
-    runs-on: ubuntu-latest
-    container: rootproject/root-conda:6.18.04
-    if: github.ref == 'refs/heads/master'
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: doxygen
-
-      - name: access control
-        run: echo "${{ secrets.USER_PASS }}" | kinit ${{ secrets.USER_NAME }}@CERN.CH
-
-      - name: upload doxygen
-        run: scp -r doxyOut/html/* ${CERN_USER}@lxplus.cern.ch:/eos/user/k/kenelson/www/documentation/cms-analysis-payload
+          branch: gh-pages
+          folder: doxyOut
