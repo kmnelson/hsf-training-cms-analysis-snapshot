@@ -33,7 +33,7 @@ jobs:
           name: skim6.18.04
 
       - name: access control
-        run: printf ${{ secrets.USER_PASS }} | base64 -d | kinit ${{ secrets.USER_NAME }}@CERN.CH
+        run: echo "${{ secrets.USER_PASS }}" | kinit ${{ secrets.USER_NAME }}@CERN.CH
 
       - name: skim
         run: |
@@ -103,6 +103,9 @@ jobs:
         run: |
           mkdir -p doxyOut
           doxygen Doxyfile
+
+      - name: access control
+        run: echo "${{ secrets.USER_PASS }}" | kinit ${{ secrets.USER_NAME }}@CERN.CH
 
       - name: upload doxygen
         run: scp -r doxyOut/html/* ${CERN_USER}@lxplus.cern.ch:/eos/user/k/kenelson/www/documentation/cms-analysis-payload
