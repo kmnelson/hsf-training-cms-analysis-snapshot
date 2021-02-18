@@ -104,8 +104,5 @@ jobs:
           mkdir -p doxyOut
           doxygen Doxyfile
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: doxygen
-          path: doxyOut/*
-    
+      - name: upload doxygen
+        run: scp -r doxyOut/html/* ${CERN_USER}@lxplus.cern.ch:/eos/user/k/kenelson/www/documentation/cms-analysis-payload
