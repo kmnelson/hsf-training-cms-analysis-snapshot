@@ -103,6 +103,7 @@ jobs:
         run: |
           mkdir -p doxyOut
           doxygen Doxyfile
+          pwd
 
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@4.0.0
