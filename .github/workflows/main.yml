@@ -93,7 +93,7 @@ jobs:
 
   doxygen_build:
     runs-on: ubuntu-latest
-    container: rightmesh/ubuntu-doxygen:latest
+    container: rightmesh/ubuntu-doxygen:5.0
     if: github.ref == 'refs/heads/master'
     steps:
       - name: checkout repository
