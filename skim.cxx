@@ -1,4 +1,4 @@
-/*
+/**
  * Implementation of the skimming step of the analysis
  *
  * The skimming step reduces the inital generic samples to a dataset optimized
@@ -22,7 +22,7 @@
 
 
 
-/*
+/**
  * Perform a selection on the minimal requirements of an event
  */
 template <typename T>
@@ -33,7 +33,7 @@ auto MinimalSelection(T &df) {
 }
 
 
-/*
+/**
  * Find the interesting muons in the muon collection
  */
 template <typename T>
@@ -42,7 +42,7 @@ auto FindGoodMuons(T &df) {
 }
 
 
-/*
+/**
  * Find the interesting taus in the tau collection
  *
  * The tau candidates in this collection represent hadronic decays of taus, which
@@ -57,7 +57,7 @@ auto FindGoodTaus(T &df) {
 }
 
 
-/*
+/**
  * Reduce the dataset to the interesting events containing at least one interesting
  * muon and tau candidate.
  */
@@ -68,7 +68,7 @@ auto FilterGoodEvents(T &df) {
 }
 
 
-/*
+/**
  * Helper function to compute the difference in the azimuth coordinate taking
  * the boundary conditions at 2 * pi into account.
  */
@@ -88,7 +88,7 @@ float DeltaPhi(T v1, T v2, const T c = M_PI)
 }
 
 
-/*
+/**
  * Select a muon-tau pair from the collections of muons and taus passing the
  * initial selection. The selected pair represents the candidate for this event
  * for a Higgs boson decay to two tau leptons of which one decays to a hadronic
@@ -158,7 +158,7 @@ auto FindMuonTauPair(T &df) {
 }
 
 
-/*
+/**
  * Declare all variables which we want to study in the analysis
  */
 template <typename T>
@@ -249,7 +249,7 @@ auto DeclareVariables(T &df) {
 }
 
 
-/*
+/**
  * Add the event weight to the dataset as the column "weight"
  */
 template <typename T>
@@ -262,7 +262,7 @@ auto AddEventWeight(T &df, const std::string& sample, const float numEvents, con
 }
 
 
-/*
+/**
  * Check that the generator particles matched to the identified taus are
  * actually taus and add this information to the dataset.
  *
@@ -281,7 +281,7 @@ auto CheckGeneratorTaus(T &df, const std::string& sample) {
 }
 
 
-/*
+/**
  * Declare all variables which shall end up in the final reduced dataset
  */
 const std::vector<std::string> finalVariables = {
@@ -295,7 +295,7 @@ const std::vector<std::string> finalVariables = {
 };
 
 
-/*
+/**
  * Main function of the skimming step of the analysis
  *
  * The function loops over the input sample, reduces the content to the

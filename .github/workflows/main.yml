@@ -91,3 +91,22 @@ jobs:
 
       - name: plot test
         run: python tests/test_plot_ggH.py
+
+  doxygen_build:
+    runs-on: ubuntu-latest
+    container: rightmesh/ubuntu-doxygen:latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: compile doxygen
+        run: |
+          mkdir -p doxyOut
+          doxygen Doxyfile
+
+      - uses: actions/upload-artifacts@v2
+        with:
+          name: doxygen
+          path: doxyOut/*
+    
