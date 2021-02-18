@@ -76,7 +76,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Download from skim
-        uses: actions/download-artifacts@v2
+        uses: actions/download-artifact@v2
         with:
           name: skim_ggH
 
